@@ -1,0 +1,167 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+
+```
+<!-- Pending Delivery Boys -->
+<div class="bg-secondary rounded p-4 mb-4">
+    <h5 class="mb-3">Pending Delivery Boys</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-white">
+            <thead>
+                <tr>
+                    <th>SLNO</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Photo</th>
+                    <th>District</th>
+                    <th>Place</th>
+                    <th>Proof</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in pending %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.deliveryboy_name}}</td>
+                    <td>{{i.deliveryboy_email}}</td>
+                    <td>{{i.deliveryboy_contact}}</td>
+                    <td>{{i.deliveryboy_address}}</td>
+
+                    <td>
+                        <img src="{{i.deliveryboy_photo.url}}" width="60" height="60" style="border-radius:50%">
+                    </td>
+
+                    <td>{{i.place_id.district.district_name}}</td>
+                    <td>{{i.place_id.place_name}}</td>
+
+                    <td>
+                        <a href="{{i.deliveryboy_proof.url}}" target="_blank" class="btn btn-info btn-sm">
+                            View
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="{% url 'Admin:Acceptboy' i.id %}" class="btn btn-success btn-sm">
+                            Accept
+                        </a>
+
+                        <a href="{% url 'Admin:rejectboy' i.id %}" class="btn btn-danger btn-sm">
+                            Reject
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="10" class="text-center">No Pending Requests</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<!-- Accepted Delivery Boys -->
+<div class="bg-secondary rounded p-4 mb-4">
+    <h5 class="mb-3">Accepted Delivery Boys</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-white">
+
+            <thead>
+                <tr>
+                    <th>SLNO</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>District</th>
+                    <th>Place</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in accepted %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.deliveryboy_name}}</td>
+                    <td>{{i.deliveryboy_email}}</td>
+                    <td>{{i.deliveryboy_contact}}</td>
+
+                    <td>{{i.place_id.district.district_name}}</td>
+                    <td>{{i.place_id.place_name}}</td>
+
+                    <td>
+                        <img src="{{i.deliveryboy_photo.url}}" width="60" height="60" style="border-radius:50%">
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">No Accepted Delivery Boys</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<!-- Rejected Delivery Boys -->
+<div class="bg-secondary rounded p-4">
+    <h5 class="mb-3">Rejected Delivery Boys</h5>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-white">
+
+            <thead>
+                <tr>
+                    <th>SLNO</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>District</th>
+                    <th>Place</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in rejected %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.deliveryboy_name}}</td>
+                    <td>{{i.deliveryboy_email}}</td>
+                    <td>{{i.deliveryboy_contact}}</td>
+
+                    <td>{{i.place_id.district.district_name}}</td>
+                    <td>{{i.place_id.place_name}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No Rejected Delivery Boys</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+```
+
+</div>
+{% if msg %}
+<script>
+    alert("{{msg}}");
+    window.location.href="{% url 'Admin:Deliveryboylist' %}";
+</script>
+{% endif %}
+
+{% endblock %}

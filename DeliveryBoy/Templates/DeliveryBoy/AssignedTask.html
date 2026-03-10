@@ -1,0 +1,97 @@
+
+
+<div class="container-fluid pt-4 px-4">
+<div class="bg-secondary rounded p-4">
+
+<h5 class="mb-4">Assigned Deliveries</h5>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover text-white">
+
+<thead>
+<tr>
+<th>SLNO</th>
+<th>Booking Date</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for i in task %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+<td>{{i.booking_id.booking_date}}</td>
+<td>{{i.booking_id.user_id.user_name}}</td>
+<td>₹{{i.booking_id.booking_amount}}</td>
+
+<td>
+
+{% if i.booking_id.booking_status == 3 %} <span class="badge bg-warning">Assigned</span>
+
+{% elif i.booking_id.booking_status == 4 %} <span class="badge bg-info">Accepted</span>
+
+{% elif i.booking_id.booking_status == 5 %} <span class="badge bg-primary">Out for Delivery</span>
+
+{% elif i.booking_id.booking_status == 6 %} <span class="badge bg-success">Delivered</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if i.booking_id.booking_status == 3 %}
+
+<a href="{% url 'Deliveryboy:AcceptDelivery' i.booking_id.id %}" class="btn btn-success btn-sm">
+Accept
+</a>
+
+<a href="{% url 'Deliveryboy:RejectDelivery' i.booking_id.id %}" class="btn btn-danger btn-sm">
+Reject
+</a>
+
+{% elif i.booking_id.booking_status == 4 %}
+
+<a href="{% url 'Deliveryboy:OutDelivery' i.booking_id.id %}" class="btn btn-primary btn-sm">
+Out for Delivery
+</a>
+
+{% elif i.booking_id.booking_status == 5 %}
+
+<a href="{% url 'Deliveryboy:CompleteDelivery' i.booking_id.id %}" class="btn btn-success btn-sm">
+Delivered
+</a>
+
+{% else %}
+
+<span class="text-muted">No Action</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="6" class="text-center">No Assigned Tasks</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+</div>
+

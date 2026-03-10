@@ -1,0 +1,43 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+
+```
+<div class="row justify-content-center">
+
+    <div class="col-sm-12 col-md-6">
+
+        <div class="bg-secondary rounded p-4">
+
+            <h5 class="mb-4">Reply to Complaint</h5>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Reply Message</label>
+
+                    <textarea name="txt_reply"
+                              class="form-control"
+                              rows="4"
+                              placeholder="Enter your reply here..."
+                              required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Submit Reply
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}

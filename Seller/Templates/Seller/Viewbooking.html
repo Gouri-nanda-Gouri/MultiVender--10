@@ -1,0 +1,118 @@
+
+
+<div class="container-fluid pt-4 px-4">
+
+<div class="bg-secondary rounded p-4">
+
+<h5 class="mb-4">Booking List</h5>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover text-white" align="center">
+
+<thead>
+<tr>
+<th>SLNO</th>
+<th>Booking Date</th>
+<th>Product</th>
+<th>User</th>
+<th>Quantity</th>
+<th>Delivery Boy</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for i in cart %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>{{i.booking_id.booking_date}}</td>
+
+<td>{{i.product_id.product_name}}</td>
+
+<td>{{i.booking_id.user_id.user_name}}</td>
+
+<td>{{i.cart_quantity}}</td>
+
+<td>
+
+{% for assign in i.booking_id.tbl_assign_set.all %}
+
+<b>Name:</b> {{assign.deliveryboy_id.deliveryboy_name}} <br> <b>Contact:</b> {{assign.deliveryboy_id.deliveryboy_contact}}
+
+{% empty %}
+
+<span class="text-warning">Not Assigned</span>
+
+{% endfor %}
+
+</td>
+
+<td>
+
+{% if i.booking_id.booking_status == 0 %} <span class="badge bg-warning">Pending</span>
+
+{% elif i.booking_id.booking_status == 1 %} <span class="badge bg-info">Confirmed</span>
+
+{% elif i.booking_id.booking_status == 2 %} <span class="badge bg-success">Paid</span>
+
+{% elif i.booking_id.booking_status == 3 %} <span class="badge bg-primary">Assigned</span>
+
+{% elif i.booking_id.booking_status == 4 %} <span class="badge bg-info">Accepted by Delivery Boy</span>
+
+{% elif i.booking_id.booking_status == 5 %} <span class="badge bg-dark">Out for Delivery</span>
+
+{% elif i.booking_id.booking_status == 6 %} <span class="badge bg-success">Delivered</span>
+
+{% elif i.booking_id.booking_status == 7 %} <span class="badge bg-danger">Rejected by Delivery Boy</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if i.booking_id.booking_status == 2 %}
+
+<a href="{% url 'Seller:AssignDeliveryboy' i.booking_id.id %}" 
+class="btn btn-primary btn-sm">
+Assign Delivery Boy </a>
+
+{% elif i.booking_id.booking_status >= 3 %}
+
+<span class="text-success">Already Assigned</span>
+
+{% else %}
+
+<span class="text-muted">Waiting for Payment</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="8" class="text-center">No Bookings Available</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+

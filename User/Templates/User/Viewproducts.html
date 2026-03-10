@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <form action="" method="post">
+        {% csrf_token %}
+    <table border="2">
+    <tr>
+        <td>SLNO</td>
+        <td>Seller</td>
+        <td>Name</td>
+        <td>Details</td>
+        <td>Price</td>
+        <td>Photo</td>
+        <td>Category</td>
+        <td>Actions</td>
+    </tr>
+      {% for i in product %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+         <td>{{i.seller_id.seller_name}}</td>
+        <td>{{i.product_name}}</td>
+        <td>{{i.product_details}}</td>
+        <td>{{i.product_price}}</td>
+        <td><img src="{{i.product_photo.url}}" width=100></td>
+       
+        <td>{{i.category_id.category_name}}</td>
+        <td><a href="{% url 'User:AddCart' i.id %}">Add to Cart</a>,
+        <a href="{% url 'User:viewgallery' i.id %}">Viewgallery</a></td>
+
+    </tr>
+    {% endfor %}
+    </table> 
+    </form>
+    </table>
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location = "{% url 'User:Viewproducts' %}"
+</script>
+
+{% endif %}

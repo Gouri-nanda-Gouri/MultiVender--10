@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="2">
+            <tr>
+                <td><img src="{{deliverydata.deliveryboy_photo.url}}" alt=""></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{deliverydata.deliveryboy_name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{deliverydata.deliveryboy_email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{deliverydata.deliveryboy_contact}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{deliverydata.deliveryboy_address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{deliverydata.place_id.district.district_name}}</td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>{{deliverydata.place_id.place_name}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'DeliveryBoy:editMyProfile'  %}">Editprofile</a>
+                    <a href="{% url 'DeliveryBoy:changepassword'  %}">changepassword</a>
+                </td>
+
+            </tr>
+    </form>
+    </table>
+</body>
+
+</html>

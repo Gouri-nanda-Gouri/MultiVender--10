@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" enctype="multipart/form-data">
+             {% csrf_token %} 
+        <table border="1" align="center">
+
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txtname"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" name="txtemail"></td>
+            </tr>
+            <tr>
+                <td>Contacts</td>
+                <td><input type="text" name="txtphone"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <textarea name="txtaddress" rows="2" cols="16"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td>District</td>
+                <td>
+                    <select name="sel_district" id="sel_district">
+                        <option value="sel">------selection---</option>
+
+                        {% for i in dis %}
+                        <option value="{{i.id}}">{{i.district_name}}</option>
+
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td>
+                    <select name="sel_place" id="sel_place">
+                        <option value="sel">------selection---</option>
+                        {% for i in placeData %}
+                        <option value="{{i.id}}">{{i.place_name}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="choosefile"></td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td>
+                    <input type="password" name="enter_pass">
+                </td>
+            </tr>
+            <tr>
+                <td>Repassword</td>
+                <td>
+                    <input type="password" name="conform_pass">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="signup" value="signup">
+                    <input type="submit" name="cencel" value="cencel">
+                </td>
+
+            </tr>
+</body>
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+        
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
+{% if msg %}
+ <script>
+    alert("{{msg}}")
+    window.location="{% url 'Guest:Userregistration' %}"
+ </script>
+{% endif %} 

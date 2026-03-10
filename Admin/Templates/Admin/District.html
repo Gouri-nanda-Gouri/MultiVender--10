@@ -1,0 +1,88 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+
+```
+<!-- Add District Form -->
+<div class="bg-secondary rounded h-100 p-4 mb-4">
+    <h6 class="mb-4">Add District</h6>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text"
+                       class="form-control"
+                       name="txt_name"
+                       placeholder="Enter District Name"
+                       value="{{editData.district_name}}"
+                       required>
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<!-- District List -->
+<div class="bg-secondary rounded h-100 p-4">
+    <h6 class="mb-4">District List</h6>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>SL NO</th>
+                    <th>District</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in District %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.district_name}}</td>
+                    <td>
+                        <a href="{% url 'Admin:editDistrict' i.id %}"
+                           class="btn btn-warning btn-sm">
+                           Edit
+                        </a>
+
+                        <a href="{% url 'Admin:delDistrict' i.id %}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this district?')">
+                           Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+```
+
+</div>
+
+{% if update %}
+
+<script>
+alert("{{update}}")
+window.location="{% url 'Admin:District' %}"
+</script>
+
+{% endif %}
+
+{% endblock %}
