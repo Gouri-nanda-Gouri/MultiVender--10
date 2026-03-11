@@ -49,10 +49,30 @@ def changepassword(request):
         else:
                 return render(request,'User/Changepassword.html')
         
+from django.db.models import Avg
+
 def viewproduct(request):
-        product=tbl_product.objects.all()
-        return render(request,'User/Viewproducts.html',{'product':product})
-        
+
+    products = tbl_product.objects.all()
+    ar = [1,2,3,4,5]
+
+    parry = []
+
+    for i in products:
+        avg_rating = tbl_rating.objects.filter(product=i).aggregate(avg=Avg('rating_data'))['avg']
+        if avg_rating:
+            parry.append(round(avg_rating))
+        else:
+            parry.append(0)
+
+    datas = zip(products, parry)
+
+    return render(request,'User/ViewProducts.html',{
+        'products':datas,
+        'ar':ar
+    })
+
+
 
 def AddCart(request,pid):
     productdata=tbl_product.objects.get(id=pid)

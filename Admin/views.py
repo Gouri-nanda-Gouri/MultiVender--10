@@ -251,6 +251,12 @@ def Rejectseller(request,id):
     seller.save()
     return render(request,'Admin/Sellerlist.html',{'msg':"Rejected"})
 
+def ViewFeedback(request):
+
+    feedback = tbl_feedback.objects.all()
+
+    return render(request,"Admin/ViewFeedback.html",{"feedback":feedback})
+
 
 def logout(request):
     del request.session['aid']

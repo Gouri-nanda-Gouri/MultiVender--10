@@ -1,0 +1,54 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+
+<div class="bg-secondary rounded p-4">
+
+<h5 class="mb-4">User Feedback</h5>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover text-white">
+
+<thead>
+<tr>
+<th>SLNO</th>
+<th>User</th>
+<th>Feedback</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for i in feedback %}
+
+<tr>
+
+<td>{{forloop.counter}}</td>
+
+<td>{{i.user_id.user_name}}</td>
+
+<td>{{i.feedback_content}}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="3" class="text-center">No Feedback Available</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

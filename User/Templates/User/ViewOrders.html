@@ -51,24 +51,34 @@
 {% endfor %}
 
 </td>
-
 <td>
 
-{% if i.booking_id.booking_status == 0 %} <span class="badge bg-warning">Order Placed</span>
+{% if i.booking_id.booking_status == 0 %}
+<span class="badge bg-warning">Order Placed</span>
 
-{% elif i.booking_id.booking_status == 1 %} <span class="badge bg-info">Confirmed</span>
+{% elif i.booking_id.booking_status == 1 %}
+<span class="badge bg-info">Confirmed</span>
 
-{% elif i.booking_id.booking_status == 2 %} <span class="badge bg-success">Paid</span>
+{% elif i.booking_id.booking_status == 2 %}
+<span class="badge bg-success">Paid</span>
 
-{% elif i.booking_id.booking_status == 3 %} <span class="badge bg-primary">Assigned</span>
+{% elif i.booking_id.booking_status == 3 %}
+<span class="badge bg-primary">Assigned</span>
 
-{% elif i.booking_id.booking_status == 4 %} <span class="badge bg-info">Accepted by Delivery Boy</span>
+{% elif i.booking_id.booking_status == 4 %}
+<span class="badge bg-info">Accepted by Delivery Boy</span>
 
-{% elif i.booking_id.booking_status == 5 %} <span class="badge bg-dark">Out for Delivery</span>
+{% elif i.booking_id.booking_status == 5 %}
+<span class="badge bg-dark">Out for Delivery</span>
 
-{% elif i.booking_id.booking_status == 6 %} <span class="badge bg-success">Delivered</span>
-
-{% elif i.booking_id.booking_status == 7 %} <span class="badge bg-danger">Delivery Rejected</span>
+{% elif i.booking_id.booking_status == 6 %}
+<span class="badge bg-success">Delivered</span>
+<br>
+<a href="{% url 'User:rating' i.product_id.id %}" class="btn btn-warning btn-sm">
+Rate Product
+</a>
+{% elif i.booking_id.booking_status == 7 %}
+<span class="badge bg-danger">Delivery Rejected</span>
 
 {% endif %}
 

@@ -35,4 +35,6 @@ urlpatterns = [
     path('Acceptseller/<int:id>',views.Acceptseller,name="Acceptseller"),
     path('Rejectseller/<int:id>',views.Rejectseller,name="Rejectseller"),
 
+    path('ViewFeedback/',views.ViewFeedback,name="ViewFeedback"),
+
 ]
